@@ -1,6 +1,8 @@
 package ControllerServer;
 
 
+import ConnectionNet.TCPConection;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -14,7 +16,7 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(1313)){
             while (true){
                 try {
-new TCPC
+new TCPConection()
 
                 }catch (IOException e){
                     System.out.println(e);

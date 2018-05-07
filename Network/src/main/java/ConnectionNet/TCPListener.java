@@ -1,3 +1,5 @@
+package ConnectionNet;
+
 public interface TCPListener {
     void connectionReady (TCPConection tcpConection);
     void receive (TCPConection tcpConection, String mess);
