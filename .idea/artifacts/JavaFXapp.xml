@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="javafx" name="JavaFXapp">
-    <output-path>$PROJECT_DIR$/out/artifacts/JavaFXapp</output-path>
-    <root id="root">
-      <element id="module-output" name="Client" />
-      <element id="module-output" name="Server" />
-    </root>
-  </artifact>
-</component>
