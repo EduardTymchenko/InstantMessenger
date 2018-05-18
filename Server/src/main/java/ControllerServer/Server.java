@@ -3,30 +3,36 @@ package ControllerServer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 public class Server {
 
 
-    private ServerSocket serverSocket = null;
+    private  ServerSocket serverSocket = null;
     private Socket clientSocket = null;
     private final int PORT = 8888;
     private final ArrayList<ServerThread> activeUsers = new ArrayList<>();
 
     public void startServer() {
         try {
+            if (serverSocket == null || serverSocket.isClosed()){
             serverSocket = new ServerSocket(PORT);
             System.out.println("Server running...");
+            }else {
+                System.out.println("The server is already running");
+            }
             while (!serverSocket.isClosed()) {
-
-                clientSocket = serverSocket.accept();
-                ServerThread client = new ServerThread(clientSocket);
-
-                activeUsers.add(client);
-
+                try {
+                    clientSocket = serverSocket.accept();
+                    ServerThread client = new ServerThread(clientSocket);
+                    activeUsers.add(client);
+                } catch (SocketException e) {
+                        continue;
+                        //e.printStackTrace();
+                }
             }
         } catch (IOException e) {
-            System.out.println("$");
             e.printStackTrace();
         }
     }

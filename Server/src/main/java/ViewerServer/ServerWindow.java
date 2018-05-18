@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ServerWindow extends Application {
-    private static Server server = new Server();
+    private  Server server = new Server();
 
 
     public static void main(String[] args) {
