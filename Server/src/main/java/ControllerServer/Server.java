@@ -5,52 +5,54 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Server implements TCPListener{
-    //public static void main(String[] args) {
-    //    new Server();
+public class Server {
 
-    //}
-    private boolean stopServ;
-    private ServerSocket serverSocket;
-    private Socket clientSocket;
+
+    private ServerSocket serverSocket = null;
+    private Socket clientSocket = null;
     private final int PORT = 8888;
-    private final ArrayList<TCPConnection> conections = new ArrayList<>();
-
-/*public void start() {
-    try {
-        serverSocket = new ServerSocket(PORT);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}*/
+    private final ArrayList<ServerThread> activeUsers = new ArrayList<>();
 
     public void startServer() {
         try {
             serverSocket = new ServerSocket(PORT);
+            System.out.println("Server running...");
+            while (!serverSocket.isClosed()) {
+
+                clientSocket = serverSocket.accept();
+                ServerThread client = new ServerThread(clientSocket);
+
+                activeUsers.add(client);
+
+            }
         } catch (IOException e) {
+            System.out.println("$");
             e.printStackTrace();
         }
-        System.out.println("Server running...");
+    }
 
-        while (!stopServ) {
+        public void stopServer () {
             try {
-                clientSocket = serverSocket.accept();
-                //new ClientHandler(clientSocket);
-                //new TCPConnection(this, serverSocket.accept());
-
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (serverSocket == null || serverSocket.isClosed()){
+                    System.out.println("Server is not running!");
+                } else {
+                    System.out.println("The server will be shut down after 1 second");
+                    Thread.sleep(1000);
+                    if (clientSocket != null ){
+                        clientSocket.close();
+                    }
+                    serverSocket.close();
+                    System.out.println("Server is closed");
                 }
-            } catch (IOException e) {
-                System.out.println(e);
+            } catch (IOException | InterruptedException e) {
+                System.out.println("$$$$");
+                e.printStackTrace();
             }
         }
 
-    }
+}
 
-    public void serverHandler(){
+    /*public void serverHandler(){
 
     }
 
@@ -106,6 +108,6 @@ public class Server implements TCPListener{
 
     public void setStopServ(boolean stopServ) {
         this.stopServ = stopServ;
-    }
-}
+    }*/
+
 

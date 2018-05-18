@@ -5,6 +5,7 @@ public class User {
     private String nameUser;
     private String passwordUser;
     private boolean adminUser;
+    private boolean online;
 
     public int getIdUser() {
         return idUser;
