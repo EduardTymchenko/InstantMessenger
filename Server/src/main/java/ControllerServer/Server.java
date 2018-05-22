@@ -1,35 +1,54 @@
 package ControllerServer;
 
+import ModelServer.MessageOut;
+import ModelServer.XmltoString;
+import ViewerServer.ServerWindow;
+import ViewerServer.ServerWindowController;
+import org.w3c.dom.Document;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Server {
-
-
+    private String toArreyText;
     private  ServerSocket serverSocket = null;
-    private Socket clientSocket = null;
+    private Socket clientSockets = null;
     private final int PORT = 8888;
-    private final ArrayList<ServerThread> activeUsers = new ArrayList<>();
+    private boolean stopServer;
+    private static ArrayList<ServerThread> activeUsers = new ArrayList<>();
+    private ServerWindowController serverWindowController ;
+
+    public String getToArreyText() {
+        return toArreyText;
+    }
 
     public void startServer() {
         try {
             if (serverSocket == null || serverSocket.isClosed()){
-            serverSocket = new ServerSocket(PORT);
-            System.out.println("Server running...");
+                stopServer = false;
+                serverSocket = new ServerSocket(PORT);
+                System.out.println("!!Server running...");
             }else {
                 System.out.println("The server is already running");
             }
-            while (!serverSocket.isClosed()) {
+            while (!stopServer) {
                 try {
-                    clientSocket = serverSocket.accept();
-                    ServerThread client = new ServerThread(clientSocket);
+                    clientSockets = serverSocket.accept();
+                    ServerThread client = new ServerThread(clientSockets);
                     activeUsers.add(client);
                 } catch (SocketException e) {
+                    if (stopServer){
                         continue;
-                        //e.printStackTrace();
+                    } else {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (IOException e) {
@@ -44,10 +63,11 @@ public class Server {
                 } else {
                     System.out.println("The server will be shut down after 1 second");
                     Thread.sleep(1000);
-                    if (clientSocket != null ){
-                        clientSocket.close();
+                    if (clientSockets != null ){
+                        clientSockets.close();
                     }
                     serverSocket.close();
+                    stopServer = true;
                     System.out.println("Server is closed");
                 }
             } catch (IOException | InterruptedException e) {
@@ -55,7 +75,64 @@ public class Server {
                 e.printStackTrace();
             }
         }
+    // отправляем сообщение всем клиентам
+    public static void sendMessageToAllClients(String msg) {
+        for (ServerThread client : activeUsers) {
+            client.sendMsg(msg);
+        }
+    }
 
+    public class ServerThread extends Thread {
+        private Socket clientSocket;
+        private PrintWriter outMessage;
+        private Scanner inputMessage;
+        private Document message;
+
+        public ServerThread(Socket clientSocket) throws IOException {
+            this.clientSocket = clientSocket;
+            System.out.println("new user connected from " + clientSocket.getInetAddress().toString()+ clientSocket.getPort());
+            inputMessage = new Scanner(this.clientSocket.getInputStream());
+            outMessage = new PrintWriter(this.clientSocket.getOutputStream(),true);
+            start();
+        }
+        public void  run() {
+
+
+                        // сервер отправляет сообщение
+                        Server.sendMessageToAllClients("Новый участник вошёл в чат!");
+
+                        message = new MessageOut("server","Новый участник вошёл в чат!").messToXML();
+                        Server.sendMessageToAllClients(XmltoString.xmlString(message));
+
+                        Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+
+                        ": "+clientSocket.getPort());
+                        sendMsg("WWWWWWWWWWWW");
+            while (true) {
+                // Если от клиента пришло сообщение
+                if (inputMessage.hasNext()) {
+                    String clientMessage = inputMessage.nextLine();
+                    // если клиент отправляет данное сообщение, то цикл прерывается и
+                    // клиент выходит из чата
+                    if (clientMessage.equalsIgnoreCase("##session##end##")) {
+                        break;
+                    }
+                    // выводим в консоль сообщение (для теста)
+                    System.out.println(clientMessage);
+                    // отправляем данное сообщение всем клиентам
+                    Server.sendMessageToAllClients(clientMessage);
+                }
+            }
+        }
+        // отправляем сообщение
+        public void sendMsg(String msg) {
+            try {
+                outMessage.println(msg);
+                outMessage.flush();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
 
     /*public void serverHandler(){
@@ -82,11 +159,7 @@ public class Server {
         System.out.println("Connection Exeption " + e);
 
     }
-    private void sendToAllClients(String value){
-        System.out.println(value);
-        for (int i=0; i < conections.size(); i++){
-            conections.get(i).sendMsg(value);
-        }
+
     }
     public void stopServer(){
         try {

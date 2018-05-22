@@ -1,37 +1,73 @@
 package ControllerClient;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientController {
-    private static Socket clientSocket;
+    private Socket clSocket;
+    private final int portServer = 8888;
+    private final String ipServer = "localhost";
+    private Scanner in;
+    private PrintWriter out;
+    private Scanner scan = new Scanner(System.in);
 
-    private static final int portServer = 8888;
-    private static final String ipServer = "localhoct";
-
-    public static void main(String[] args) {
-        connect();
-        handle();
-        end();
-    }
-
-
-    private static void connect(){
+    public ClientController() throws IOException {
         try {
-            clientSocket = new Socket(ipServer,portServer);
-        } catch (IOException e) {
-            e.printStackTrace();
+            clSocket = new Socket(ipServer, portServer);
+            in = new Scanner(clSocket.getInputStream());
+            out = new PrintWriter(clSocket.getOutputStream(), true);
+            new Thread(new Runnable() {
+                public void run() {
+                    while (in.hasNext()) {
+                        String inMes = in.nextLine();
+                        System.out.println(inMes);
+                    }
+                }
+            }).start();
+
+            String outM;
+            while (true) {
+                outM = scan.nextLine();
+                if (outM.equals("exit"))
+                    break;
+                sendMsg(outM);
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
-    // обработка подключения к серверу
-    private static void handle(){
+        // отправка сообщения
 
-    }
-    private static void end(){
-        try {
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        public void sendMsg (String messageStr){
+try {
+    out.println(messageStr);
+    out.flush();
+
+} catch (Exception e){
+    e.printStackTrace();
 }
+
+
+        }
+
+
+        /**
+         * Закрывает входной и выходной потоки и сокет
+         */
+        private void close () {
+            try {
+                in.close();
+                out.close();
+                clSocket.close();
+            } catch (Exception e) {
+                System.err.println("Потоки не были закрыты!");
+            }
+
+        }
+
+    }
+
