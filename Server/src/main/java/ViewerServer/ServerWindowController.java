@@ -6,9 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 public class ServerWindowController {
     //verWindowController serverWindowController;
-    private Server server = new Server();
+    private Server server;
+
+    {
+        try {
+            server = new Server();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void startServer(ActionEvent event) {

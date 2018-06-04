@@ -1,14 +1,11 @@
 package ControllerServer;
 
-import ModelServer.MessageOut;
-import ModelServer.XmltoString;
-import ViewerServer.ServerWindow;
+import ModelServer.MessageXML;
 import ViewerServer.ServerWindowController;
 import org.w3c.dom.Document;
 
-import java.io.BufferedReader;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,6 +21,10 @@ public class Server {
     private boolean stopServer;
     private static ArrayList<ServerThread> activeUsers = new ArrayList<>();
     private ServerWindowController serverWindowController ;
+    private MessageXML serverMessage = new MessageXML("Server","");
+
+    public Server() throws ParserConfigurationException {
+    }
 
     public String getToArreyText() {
         return toArreyText;
@@ -100,11 +101,14 @@ public class Server {
 
                         // сервер отправляет сообщение
                         Server.sendMessageToAllClients("Новый участник вошёл в чат!");
+                        serverMessage.setBodyMess("Новый участник вошёл в чат!");
+                        System.out.println(serverMessage);
 
-                        message = new MessageOut("server","Новый участник вошёл в чат!").messToXML();
-                        Server.sendMessageToAllClients(XmltoString.xmlString(message));
 
-                        Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+
+                Server.sendMessageToAllClients(serverMessage.xmlString());
+
+
+            Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+
                         ": "+clientSocket.getPort());
                         sendMsg("WWWWWWWWWWWW");
             while (true) {
