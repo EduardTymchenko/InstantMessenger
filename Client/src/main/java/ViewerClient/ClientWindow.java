@@ -15,10 +15,7 @@ public class ClientWindow extends Application {
     static ClientController clientController;
 
     public static void main(String[] args) {
-
-
           //  clientController = new ClientController();
-
         launch(args);
     }
 
@@ -31,18 +28,6 @@ public class ClientWindow extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> System.exit(0));
-
-
         }
-
-    }
-    /*
-    public static void errorConnectServer(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText("Server connection error.\nTry later.");
-        alert.showAndWait();
-    }
-    */
+}
 

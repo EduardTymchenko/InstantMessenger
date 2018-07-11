@@ -51,9 +51,6 @@ public class AllChatWindowController {
 
         assert textAllChatOut != null : "fx:id=\"textAllChatOut\" was not injected: check your FXML file 'AllChat.fxml'.";
         assert textAllChatIn != null : "fx:id=\"textAllChatIn\" was not injected: check your FXML file 'AllChat.fxml'.";
-
     }
-// For Login.fxml ******************************************
-
 
 }

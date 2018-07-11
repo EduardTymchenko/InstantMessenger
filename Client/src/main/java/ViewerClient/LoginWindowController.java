@@ -81,55 +81,13 @@ public class LoginWindowController {
             formCheck.setVisible(false);
             try {
                 clientController = new ClientController();
+                clientController.sendMsg("Hi!!!");
+                showAllChatWindow();
+                stageLogin.close();
             } catch (ConnectException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 errorConnectServer();
             }
-
-            //startConnect();
-            //startConnect();
-            // Формируем пакет на отправку
-            clientController.sendMsg("Hi!!!");
-            // Если получаем положительный ответ
-            showAllChatWindow();
-            stageLogin.close();
-
-
-/*
-            Parent login = FXMLLoader.load(getClass().getResource("/AllChat.fxml"));
-            Stage loginStage = new Stage();
-            loginStage.setScene(new Scene(login));
-            loginStage.setTitle("Login to Messenger");
-            loginStage.setMinHeight(300);
-            loginStage.setMinWidth(400);
-            loginStage.setResizable(false);
-            loginStage.show();
-            */
-            //loginStage.setOnCloseRequest(event -> {
-            //System.exit(0);
-            // });
-
-            //Platform.setImplicitExit(true);
-
-            //ClientWindow.parentWindow.show();
-
-            //getMessage();
-            //startClient();
-            //ClientWindow.parentWindow;
-            //Stage stage = new Stage();
-            //FXMLDocumentController(stage);
-
-            //allChat();
-
-            //stageLogin.show();
-            // Platform.exit();
-
-
-            //textAllChatIn.appendText("hhhhhh");
-            // getMessage("Hello");
-
-            //  e.printStackTrace();
-            // }
 
         }
     }
@@ -156,7 +114,6 @@ public class LoginWindowController {
         System.exit(0);
     }
 
-
     private void showAllChatWindow() throws IOException {
         Parent allChat = FXMLLoader.load(getClass().getResource("/AllChat.fxml"));
         Stage allChatStage = new Stage();
@@ -175,8 +132,6 @@ public class LoginWindowController {
         alert.setContentText("Server connection error.\nTry later.");
         alert.showAndWait();
     }
-
-
 }
 
 

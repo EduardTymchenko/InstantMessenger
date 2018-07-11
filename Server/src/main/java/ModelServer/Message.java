@@ -42,21 +42,4 @@ public class Message {
         this.bodyMess = bodyMess;
     }
 
-   /*
-    public String xmlString(){
-
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            //t.setOutputProperty(OutputKeys.INDENT,"yes");
-            StringWriter stringWriter = new StringWriter();
-            transformer.transform(new DOMSource((Node) document),new StreamResult(stringWriter));
-            return stringWriter.getBuffer().toString();
-        }  catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        return "Error message!";
-    }
-*/
 }

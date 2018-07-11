@@ -6,23 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-
-
 public class ServerWinController {
     //verWindowController serverWindowController;
     private Server server;
-
     {
             server = new Server();
     }
-
     @FXML
     void startServer(ActionEvent event) {
-
         new Thread(() -> server.startServer()).start();
-
-        sendMessage("RRRRRR");
-
+        sendMessage("Start Server");
     }
 
     @FXML
@@ -43,17 +36,11 @@ public class ServerWinController {
     }
 
     public  void sendMessage(final String message) {
-        //final TextArea ta = new TextArea(message);
         Platform.runLater(new Runnable() {//GUI поток
             @Override
             public void run() {
-
                 ta.appendText(message + "\n");
-
-                //System.out.println(message);
             }
         });
     }
-
-
 }

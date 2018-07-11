@@ -1,6 +1,5 @@
 package ControllerServer;
 
-
 import ModelServer.Message;
 import ModelServer.ParsingXML;
 import ViewerServer.ServerWinController;
@@ -78,7 +77,7 @@ public class Server {
             // сервер отправляет сообщение
             //sendMessageToAllClients("!!!Новый участник вошёл в чат!");
 
-            System.out.println("otpr");
+            System.out.println("new User");
 
             while (true) {
                 try {
@@ -94,34 +93,7 @@ public class Server {
                     e.printStackTrace();
                 }
             }
-
-            //serverMessage.setBodyMess("eee");
-
-            //Server.sendMessageToAllClients(parsingXML.messToXML(serverMessage).toString());
-
-
-            //Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+": "+clientSocket.getPort());
-
-
-
-                /*
-                // Если от клиента пришло сообщение
-                if (inputMessage.hasNext()) {
-                    String clientMessage = inputMessage.nextLine();
-                    // если клиент отправляет данное сообщение, то цикл прерывается и
-                    // клиент выходит из чата
-                    if (clientMessage.equalsIgnoreCase("##session##end##")) {
-                        break;
-                    }
-                    // выводим в консоль сообщение (для теста)
-                    System.out.println(clientMessage);
-                    // отправляем данное сообщение всем клиентам
-                    Server.sendMessageToAllClients(clientMessage);
-                }
-                */
-            }
-
-
+        }
 
 
         // отправляем сообщение
@@ -169,61 +141,7 @@ public class Server {
         }
     }
 
-
 }
 
-    /*public void serverHandler(){
-
-    }
-
-    public synchronized void connectionReady(TCPConnection tcpConection) {
-        conections.add(tcpConection);
-        sendToAllClients("Client connected: " + tcpConection);
-
-    }
-
-    public synchronized void receive(TCPConnection tcpConection, String mess) {
-        sendToAllClients(mess);
-
-    }
-
-    public synchronized void disconection(TCPConnection tcpConection) {
-        conections.remove(tcpConection);
-        sendToAllClients("Client disconnected: " + tcpConection);
-    }
-
-    public synchronized void exeption(TCPConnection tcpConection, Exception e) {
-        System.out.println("Connection Exeption " + e);
-
-    }
-
-    }
-    public void stopServer(){
-        try {
-
-                System.out.println("The server will be shut down after 1 second");
-                //Thread.sleep(1000);
-            if (clientSocket != null) {
-                clientSocket.close();
-            }
-                serverSocket.close();
-            //stopServ = true;
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public boolean isStopServ() {
-        return stopServ;
-    }
-
-    public void setStopServ(boolean stopServ) {
-        this.stopServ = stopServ;
-    }*/
 
 

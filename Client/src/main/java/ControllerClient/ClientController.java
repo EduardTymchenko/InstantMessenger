@@ -10,8 +10,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-
-
 public class ClientController {
     private AllChatWindowController allChatWindowController;
     private String messagString;
@@ -53,15 +51,6 @@ public class ClientController {
                     //условия выхода
                 }
             }).start();
-/*
-            String outMessage;
-            while (true) {
-                outMessage = scan.nextLine();
-                if (outMessage.equals("exit"))
-                    break;
-                sendMsg(outMessage);
-            }
-            */
         }
 
     public String getMessagString() {
