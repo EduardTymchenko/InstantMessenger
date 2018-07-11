@@ -1,50 +1,78 @@
 package ControllerClient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import ModelServer.Message;
+import ModelServer.ParsingXML;
+import ViewerClient.AllChatWindowController;
+import javafx.application.Platform;
+
+import javax.xml.bind.JAXBException;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
+
+
 public class ClientController {
+    private AllChatWindowController allChatWindowController;
+    private String messagString;
     private Socket clSocket;
     private final int portServer = 8888;
     private final String ipServer = "localhost";
-    private Scanner in;
-    private PrintWriter out;
+    private BufferedReader in;
+    private BufferedWriter out;
     private Scanner scan = new Scanner(System.in);
+    private ParsingXML parsingXML = new ParsingXML();
+    private Message clientMess = new Message();
+
+    public void setAllChatWindowController(AllChatWindowController allChatWindowController) {
+        this.allChatWindowController = allChatWindowController;
+    }
 
     public ClientController() throws IOException {
-        try {
+
             clSocket = new Socket(ipServer, portServer);
-            in = new Scanner(clSocket.getInputStream());
-            out = new PrintWriter(clSocket.getOutputStream(), true);
-            new Thread(new Runnable() {
-                public void run() {
-                    while (in.hasNext()) {
-                        String inMes = in.nextLine();
-                        System.out.println(inMes);
+            in = new BufferedReader(new InputStreamReader(clSocket.getInputStream()));
+            out = new BufferedWriter(new OutputStreamWriter(clSocket.getOutputStream()));
+            new Thread(() -> {
+                while (true) {
+
+                    try {
+                        messagString = parsingXML.readXmlFromStream(in).getBodyMess();
+                    } catch (JAXBException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
+                    Platform.runLater(()->{
+                           allChatWindowController.getMessageServer(messagString);
+                        });
+                        System.out.println("111111");
+
+
+                    //условия выхода
                 }
             }).start();
-
-            String outM;
+/*
+            String outMessage;
             while (true) {
-                outM = scan.nextLine();
-                if (outM.equals("exit"))
+                outMessage = scan.nextLine();
+                if (outMessage.equals("exit"))
                     break;
-                sendMsg(outM);
+                sendMsg(outMessage);
             }
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            */
         }
-    }
-        // отправка сообщения
 
-        public void sendMsg (String messageStr){
+    public String getMessagString() {
+        return messagString;
+    }
+// отправка сообщения
+
+        public synchronized void sendMsg(String tekstOut){
 try {
-    out.println(messageStr);
+    clientMess.setBodyMess(tekstOut);
+    parsingXML.writeXMLinStream(clientMess,out);
     out.flush();
 
 } catch (Exception e){
@@ -68,6 +96,11 @@ try {
             }
 
         }
+
+
+
+
+
 
     }
 

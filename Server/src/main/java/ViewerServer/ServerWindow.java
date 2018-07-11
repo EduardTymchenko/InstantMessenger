@@ -25,9 +25,9 @@ public class ServerWindow extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/ServerViewer.fxml"));
         //TextArea ta=(TextArea) root.lookup("#ta");
         primaryStage.setTitle("Server");
-        primaryStage.setScene(new Scene(root, 600, 400));
-
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
     }
 
 

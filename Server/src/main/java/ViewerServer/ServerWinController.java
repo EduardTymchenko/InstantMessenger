@@ -6,31 +6,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-import javax.xml.parsers.ParserConfigurationException;
 
-public class ServerWindowController {
+
+public class ServerWinController {
     //verWindowController serverWindowController;
     private Server server;
 
     {
-        try {
             server = new Server();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
     void startServer(ActionEvent event) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                server.startServer();
-            }
-        }).start();
+        new Thread(() -> server.startServer()).start();
 
-        sendMessage("!!!!");
+        sendMessage("RRRRRR");
 
     }
 

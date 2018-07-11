@@ -1,35 +1,28 @@
 package ControllerServer;
 
-import ModelServer.MessageXML;
-import ViewerServer.ServerWindowController;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import ModelServer.Message;
+import ModelServer.ParsingXML;
+import ViewerServer.ServerWinController;
+
+import javax.xml.bind.JAXBException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Server {
-    private String toArreyText;
-    private  ServerSocket serverSocket = null;
+
+    private ServerSocket serverSocket = null;
     private Socket clientSockets = null;
     private final int PORT = 8888;
-    private boolean stopServer;
+    private boolean stopServer = true;
     private static ArrayList<ServerThread> activeUsers = new ArrayList<>();
-    private ServerWindowController serverWindowController ;
-    private MessageXML serverMessage = new MessageXML("Server","");
+    private ServerWinController serverWinController;
+    private Message serverMessage = new Message();
 
-    public Server() throws ParserConfigurationException {
-    }
-
-    public String getToArreyText() {
-        return toArreyText;
-    }
-
+    //Запускаем сервер
     public void startServer() {
         try {
             if (serverSocket == null || serverSocket.isClosed()){
@@ -43,6 +36,8 @@ public class Server {
                 try {
                     clientSockets = serverSocket.accept();
                     ServerThread client = new ServerThread(clientSockets);
+
+                    // обработка пользователя
                     activeUsers.add(client);
                 } catch (SocketException e) {
                     if (stopServer){
@@ -55,9 +50,92 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                clientSockets.close();
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    public class ServerThread extends Thread {
+        private Socket clientSocket;
+        private BufferedWriter outMessage;
+        private BufferedReader inputMessage;
+        private ParsingXML parsingXML = new ParsingXML();
 
-        public void stopServer () {
+        private ServerThread(Socket clientSocket) throws IOException {
+            this.clientSocket = clientSocket;
+            System.out.println("new user connected from " + clientSocket.getInetAddress().toString()+ clientSocket.getPort());
+            inputMessage = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            outMessage = new BufferedWriter(new OutputStreamWriter(this.clientSocket.getOutputStream()));
+
+            start();
+        }
+
+        public void  run() {
+            // сервер отправляет сообщение
+            //sendMessageToAllClients("!!!Новый участник вошёл в чат!");
+
+            System.out.println("otpr");
+
+            while (true) {
+                try {
+                    try {
+                        if(inputMessage.ready()) {
+                            readCommand(this);
+                        }
+                    } catch (JAXBException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //serverMessage.setBodyMess("eee");
+
+            //Server.sendMessageToAllClients(parsingXML.messToXML(serverMessage).toString());
+
+
+            //Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+": "+clientSocket.getPort());
+
+
+
+                /*
+                // Если от клиента пришло сообщение
+                if (inputMessage.hasNext()) {
+                    String clientMessage = inputMessage.nextLine();
+                    // если клиент отправляет данное сообщение, то цикл прерывается и
+                    // клиент выходит из чата
+                    if (clientMessage.equalsIgnoreCase("##session##end##")) {
+                        break;
+                    }
+                    // выводим в консоль сообщение (для теста)
+                    System.out.println(clientMessage);
+                    // отправляем данное сообщение всем клиентам
+                    Server.sendMessageToAllClients(clientMessage);
+                }
+                */
+            }
+
+
+
+
+        // отправляем сообщение
+        public synchronized void sendMsg(String msg) {
+
+            try {
+                serverMessage.setBodyMess(msg);
+                parsingXML.writeXMLinStream(serverMessage,outMessage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    public void stopServer () {
             try {
                 if (serverSocket == null || serverSocket.isClosed()){
                     System.out.println("Server is not running!");
@@ -72,71 +150,26 @@ public class Server {
                     System.out.println("Server is closed");
                 }
             } catch (IOException | InterruptedException e) {
-                System.out.println("$$$$");
                 e.printStackTrace();
             }
         }
+
+    private synchronized void readCommand(ServerThread client) throws IOException, JAXBException {
+
+        String commandFromMess = client.parsingXML.readXmlFromStream(client.inputMessage).getBodyMess();
+
+            System.out.println(commandFromMess);
+            sendMessageToAllClients(commandFromMess);
+        }
+
     // отправляем сообщение всем клиентам
-    public static void sendMessageToAllClients(String msg) {
+    private synchronized void sendMessageToAllClients(String msg) {
         for (ServerThread client : activeUsers) {
             client.sendMsg(msg);
         }
     }
 
-    public class ServerThread extends Thread {
-        private Socket clientSocket;
-        private PrintWriter outMessage;
-        private Scanner inputMessage;
-        private Document message;
 
-        public ServerThread(Socket clientSocket) throws IOException {
-            this.clientSocket = clientSocket;
-            System.out.println("new user connected from " + clientSocket.getInetAddress().toString()+ clientSocket.getPort());
-            inputMessage = new Scanner(this.clientSocket.getInputStream());
-            outMessage = new PrintWriter(this.clientSocket.getOutputStream(),true);
-            start();
-        }
-        public void  run() {
-
-
-                        // сервер отправляет сообщение
-                        Server.sendMessageToAllClients("Новый участник вошёл в чат!");
-                        serverMessage.setBodyMess("Новый участник вошёл в чат!");
-                        System.out.println(serverMessage);
-
-
-                Server.sendMessageToAllClients(serverMessage.xmlString());
-
-
-            Server.sendMessageToAllClients("Клиентов в чате = " + clientSocket.getInetAddress().toString()+
-                        ": "+clientSocket.getPort());
-                        sendMsg("WWWWWWWWWWWW");
-            while (true) {
-                // Если от клиента пришло сообщение
-                if (inputMessage.hasNext()) {
-                    String clientMessage = inputMessage.nextLine();
-                    // если клиент отправляет данное сообщение, то цикл прерывается и
-                    // клиент выходит из чата
-                    if (clientMessage.equalsIgnoreCase("##session##end##")) {
-                        break;
-                    }
-                    // выводим в консоль сообщение (для теста)
-                    System.out.println(clientMessage);
-                    // отправляем данное сообщение всем клиентам
-                    Server.sendMessageToAllClients(clientMessage);
-                }
-            }
-        }
-        // отправляем сообщение
-        public void sendMsg(String msg) {
-            try {
-                outMessage.println(msg);
-                outMessage.flush();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 }
 
     /*public void serverHandler(){

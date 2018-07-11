@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.GridPane?>
 
-<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerServer.ServerWindowController">
+<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerServer.ServerWinController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="167.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="10.0" prefWidth="433.0" />
@@ -17,10 +14,10 @@
     <RowConstraints maxHeight="342.0" minHeight="10.0" prefHeight="327.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="127.0" minHeight="5.0" prefHeight="41.0" vgrow="SOMETIMES" />
   </rowConstraints>
-   <children>
+
       <Button mnemonicParsing="false" onAction="#startServer" text="Start" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Button fx:id="restart" mnemonicParsing="false" text="Restart" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#stopServer" text="Stop" translateX="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextArea fx:id="ta"  GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   </children>
+      <TextArea fx:id="ta" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
 </GridPane>
