@@ -21,7 +21,7 @@ public class Server {
     private ServerWinController serverWinController;
     private Message serverMessage = new Message();
 
-    //Запускаем сервер
+    //Run server
     public void startServer() {
         try {
             if (serverSocket == null || serverSocket.isClosed()){
@@ -36,7 +36,7 @@ public class Server {
                     clientSockets = serverSocket.accept();
                     ServerThread client = new ServerThread(clientSockets);
 
-                    // обработка пользователя
+                    // after connect user
                     activeUsers.add(client);
                 } catch (SocketException e) {
                     if (stopServer){
@@ -74,8 +74,7 @@ public class Server {
         }
 
         public void  run() {
-            // сервер отправляет сообщение
-            //sendMessageToAllClients("!!!Новый участник вошёл в чат!");
+
 
             System.out.println("new User");
 
@@ -96,7 +95,7 @@ public class Server {
         }
 
 
-        // отправляем сообщение
+        //
         public synchronized void sendMsg(String msg) {
 
             try {
@@ -134,7 +133,7 @@ public class Server {
             sendMessageToAllClients(commandFromMess);
         }
 
-    // отправляем сообщение всем клиентам
+    //
     private synchronized void sendMessageToAllClients(String msg) {
         for (ServerThread client : activeUsers) {
             client.sendMsg(msg);
