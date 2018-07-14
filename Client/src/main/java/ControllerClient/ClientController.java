@@ -48,7 +48,7 @@ public class ClientController {
                         System.out.println("111111");
 
 
-                    //СѓСЃР»РѕРІРёСЏ РІС‹С…РѕРґР°
+                    //условия выхода
                 }
             }).start();
         }
@@ -56,7 +56,7 @@ public class ClientController {
     public String getMessagString() {
         return messagString;
     }
-// РѕС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ
+// отправка сообщения
 
         public synchronized void sendMsg(String tekstOut){
 try {
@@ -73,7 +73,7 @@ try {
 
 
         /**
-         * Р—Р°РєСЂС‹РІР°РµС‚ РІС…РѕРґРЅРѕР№ Рё РІС‹С…РѕРґРЅРѕР№ РїРѕС‚РѕРєРё Рё СЃРѕРєРµС‚
+         * Закрывает входной и выходной потоки и сокет
          */
         private void close () {
             try {
@@ -81,7 +81,7 @@ try {
                 out.close();
                 clSocket.close();
             } catch (Exception e) {
-                System.err.println("РџРѕС‚РѕРєРё РЅРµ Р±С‹Р»Рё Р·Р°РєСЂС‹С‚С‹!");
+                System.err.println("Потоки не были закрыты!");
             }
 
         }

@@ -79,6 +79,7 @@ public class LoginWindowController {
                 (passwordTextField.getFill() == Color.BLACK) &
                 (repeatPassText.getFill() == Color.BLACK)) {
             formCheck.setVisible(false);
+
             try {
                 clientController = new ClientController();
                 clientController.sendMsg("Hi!!!");
@@ -88,7 +89,6 @@ public class LoginWindowController {
                 //e.printStackTrace();
                 errorConnectServer();
             }
-
         }
     }
 
@@ -124,7 +124,7 @@ public class LoginWindowController {
         allChatStage.show();
         allChatStage.setOnCloseRequest(event -> System.exit(0));
     }
-
+    @FXML
     private void errorConnectServer(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error connection");

@@ -10,7 +10,7 @@ public class ParsingXML {
 
     private Message message;
 
-    //читаем Из потока XML
+    //
     public Message readXmlFromStream(BufferedReader in) throws JAXBException, IOException {
         StringBuffer ans = new StringBuffer();
             while (true) {
@@ -30,15 +30,15 @@ public class ParsingXML {
         return (Message) unmarshaller.unmarshal(new StringReader(ans.toString()));
     }
 
-    // пишем в поток XML
+    // write stream to XML
     public void writeXMLinStream(Message message, BufferedWriter out) throws IOException, JAXBException {
         StringWriter writer = new StringWriter();
 
 
-         // сообщение в формат XML
+         // message to format XML
         JAXBContext context = JAXBContext.newInstance(Message.class);
         Marshaller marshaller = context.createMarshaller();
-        // с переносами
+        // good format
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(message,out);
         out.flush();

@@ -36,7 +36,7 @@ public class ServerWinController {
     }
 
     public  void sendMessage(final String message) {
-        Platform.runLater(new Runnable() {//GUI РїРѕС‚РѕРє
+        Platform.runLater(new Runnable() {//GUI поток
             @Override
             public void run() {
                 ta.appendText(message + "\n");

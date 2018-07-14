@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerClient.LoginWindowController">
-
-      <Button fx:id="loginButton" layoutX="36.0" layoutY="232.0" mnemonicParsing="false" onAction="#loginButtonActive" prefHeight="25.0" prefWidth="60.0" text="Login" />
-      <Button fx:id="newUserButton" layoutX="126.0" layoutY="232.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newUserAction" prefHeight="25.0" prefWidth="67.0" text="New User" />
-      <Button fx:id="closeButton" layoutX="326.0" layoutY="232.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="25.0" prefWidth="54.0" text="Quit" />
-      <TextField fx:id="loginForm" layoutX="126.0" layoutY="92.0" promptText="Enter login" />
-      <PasswordField fx:id="passwordForm" layoutX="126.0" layoutY="131.0" promptText="Enter password" />
-      <Text fx:id="loginWindowText" layoutX="117.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login to chat" textAlignment="CENTER" wrappingWidth="149.0">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text fx:id="loginTextField" layoutX="75.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
-      <Text fx:id="passwordTextField" layoutX="55.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <PasswordField fx:id="repeatPassField" layoutX="126.0" layoutY="172.0" promptText="Repeat password" visible="false" />
-      <Text fx:id="repeatPassText" layoutX="21.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repeat password" visible="false" />
-      <Text fx:id="formCheck" fill="RED" layoutX="58.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check the data. For help, point over the field." textAlignment="CENTER" visible="false" wrappingWidth="311.0" />
+   <children>
+   
+         <Button fx:id="loginButton" layoutX="36.0" layoutY="232.0" mnemonicParsing="false" onAction="#loginButtonActive" prefHeight="25.0" prefWidth="60.0" text="Login" />
+         <Button fx:id="newUserButton" layoutX="126.0" layoutY="232.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newUserAction" prefHeight="25.0" prefWidth="67.0" text="New User" />
+         <Button fx:id="closeButton" layoutX="326.0" layoutY="232.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="25.0" prefWidth="54.0" text="Quit" />
+         <TextField fx:id="loginForm" layoutX="126.0" layoutY="92.0" promptText="Enter login" />
+         <PasswordField fx:id="passwordForm" layoutX="126.0" layoutY="131.0" promptText="Enter password" />
+         <Text fx:id="loginWindowText" layoutX="117.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login to chat" textAlignment="CENTER" wrappingWidth="149.0">
+            <font>
+               <Font size="22.0" />
+            </font>
+         </Text>
+         <Text fx:id="loginTextField" layoutX="75.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
+         <Text fx:id="passwordTextField" layoutX="55.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+         <PasswordField fx:id="repeatPassField" layoutX="126.0" layoutY="172.0" promptText="Repeat password" visible="false" />
+         <Text fx:id="repeatPassText" layoutX="21.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repeat password" visible="false" />
+         <Text fx:id="formCheck" fill="RED" layoutX="58.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check the data. For help, point over the field." textAlignment="CENTER" visible="false" wrappingWidth="311.0" />
+      <Button layoutX="230.0" layoutY="232.0" mnemonicParsing="false" onAction="#errorConnectServer" text="Button" />
+   </children>
 
 </AnchorPane>
