@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: Lab2.Server:maven-metadata-local:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/Lab2/Server/maven-metadata-local/1.0-SNAPSHOT/maven-metadata-local-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/Lab2/Server/maven-metadata-local/1.0-SNAPSHOT/maven-metadata-local-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/Lab2/Server/maven-metadata-local/1.0-SNAPSHOT/maven-metadata-local-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
