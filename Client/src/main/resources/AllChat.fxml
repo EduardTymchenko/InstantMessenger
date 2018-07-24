@@ -1,36 +1,46 @@
-<?xml version="1.0" encoding="Cp1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerClient.AllChatWindowController">
-
-      <Button layoutX="526.0" layoutY="331.0" mnemonicParsing="false" onAction="#addChatButton" text="Add Chat" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="22.0" />
-      <TextArea fx:id="textAllChatIn" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="284.0" prefWidth="421.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="34.0" />
-      <TextArea fx:id="textAllChatOut" layoutX="14.0" layoutY="325.0" prefHeight="60.0" prefWidth="360.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="226.0" />
-      <ListView layoutX="444.0" layoutY="34.0" prefHeight="284.0" prefWidth="148.0" AnchorPane.bottomAnchor="82.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="34.0" />
-      <Button layoutX="383.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendMsgForm" text="Send" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="165.0" />
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-
-          <Menu mnemonicParsing="false" text="File">
-
-              <MenuItem mnemonicParsing="false" text="Change password" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quite" />
-
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-
-              <MenuItem mnemonicParsing="false" text="Delete" />
-
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-
-              <MenuItem mnemonicParsing="false" text="About" />
-
-          </Menu>
-
-      </MenuBar>
-      <Button layoutX="526.0" layoutY="368.0" mnemonicParsing="false" text="Button" />
+   <children>
+         <TextArea fx:id="textAllChatIn" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="284.0" prefWidth="421.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="34.0" />
+         <TextArea fx:id="textAllChatOut" layoutX="14.0" layoutY="325.0" prefHeight="60.0" prefWidth="360.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="226.0" />
+         <ListView fx:id="idactiveUsers" layoutX="444.0" layoutY="34.0" prefHeight="284.0" prefWidth="148.0" AnchorPane.bottomAnchor="82.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="34.0" />
+         <Button layoutX="383.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendMsgForm" text="Send" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="165.0" />
+         <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <menus>
+      
+                <Menu mnemonicParsing="false" text="Settings">
+         <items>
+         
+                       <MenuItem mnemonicParsing="false" onAction="#changePassworAction" text="Change password" />
+                           <SeparatorMenuItem mnemonicParsing="false" />
+                           <MenuItem mnemonicParsing="false" onAction="#quitAction" text="Quite" />
+         </items>
+      
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit" visible="false">
+                   <items>
+         
+                       <MenuItem mnemonicParsing="false" text="Delete" />
+                   </items>
+      
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                   <items>
+         
+                       <MenuItem mnemonicParsing="false" text="About" />
+                   </items>
+      
+                </Menu>
+            </menus>
+   
+         </MenuBar>
+      <Text layoutX="499.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="30.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="6.0" />
+      <Text fx:id="idUser" fill="#34d015" layoutX="530.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="login" wrappingWidth="59.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="6.0" />
+   </children>
 
 </AnchorPane>

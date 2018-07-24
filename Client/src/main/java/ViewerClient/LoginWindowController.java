@@ -3,6 +3,9 @@ package ViewerClient;
 import java.io.IOException;
 import java.net.ConnectException;
 import ControllerClient.ClientController;
+import ModelServer.CommandChat;
+import ModelServer.Message;
+import ModelServer.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,10 +43,11 @@ public class LoginWindowController {
     @FXML
     private Text loginTextField;
 
+
     @FXML
     void loginButtonActive(ActionEvent event) throws IOException {
-
-        Stage stageLogin = (Stage) loginButton.getScene().getWindow();
+        Message loginMessage = new Message();
+        User infoUser = loginMessage.setUser(new User());
         // do what you have to do проверка
 
         if (loginForm.getText().length() < 1 || loginForm.getText().equals(" ")) {
@@ -53,6 +57,8 @@ public class LoginWindowController {
         } else {
             loginTextField.setFill(Color.BLACK);
             //+в вообщение!!!!
+            infoUser.setNameUser(loginForm.getText());
+
         }
         if (passwordForm.getText().length() < 1) {
             formCheck.setVisible(true);
@@ -61,6 +67,7 @@ public class LoginWindowController {
         } else {
             passwordTextField.setFill(Color.BLACK);
             //+в вообщение!!!!
+            infoUser.setPasswordUser(passwordForm.getText());
         }
         if (newUser) {
             if (!(repeatPassField.getText().equals(passwordForm.getText())) || (repeatPassField.getText().length() < 1)) {
@@ -71,6 +78,7 @@ public class LoginWindowController {
             } else {
                 repeatPassText.setFill(Color.BLACK);
                 //+в вообщение!!!!
+                //infoUser.setRepeatPassword(repeatPassField.getText());
             }
         } else {
             repeatPassText.setFill(Color.BLACK);
@@ -81,13 +89,20 @@ public class LoginWindowController {
             formCheck.setVisible(false);
 
             try {
-                clientController = new ClientController();
-                clientController.sendMsg("Hi!!!");
-                showAllChatWindow();
-                stageLogin.close();
+                if (clientController == null) {
+                    clientController = new ClientController();
+                    clientController.setLoginWindowController(this);
+                }
+                if (newUser) {
+                    loginMessage.setCommandMess(CommandChat.NEW_USER);
+                } else {
+                    loginMessage.setCommandMess(CommandChat.LOGIN);
+                }
+                clientController.sendMsg(loginMessage);
+
             } catch (ConnectException e) {
                 //e.printStackTrace();
-                errorConnectServer();
+                errorLogin("Server connection error.\nTry later.");
             }
         }
     }
@@ -111,10 +126,13 @@ public class LoginWindowController {
 
     @FXML
     void closeButtonAction(ActionEvent event) {
+
         System.exit(0);
     }
 
-    private void showAllChatWindow() throws IOException {
+    public void showAllChatWindow() throws IOException {
+        Stage stageLogin = (Stage) loginButton.getScene().getWindow();
+        stageLogin.close();
         Parent allChat = FXMLLoader.load(getClass().getResource("/AllChat.fxml"));
         Stage allChatStage = new Stage();
         allChatStage.setTitle("Messenger Client");
@@ -122,16 +140,22 @@ public class LoginWindowController {
         allChatStage.setMinHeight(300);
         allChatStage.setMinWidth(400);
         allChatStage.show();
-        allChatStage.setOnCloseRequest(event -> System.exit(0));
+        allChatStage.setOnCloseRequest(event -> {
+            clientController.closeSocketClient();
+            System.exit(0);
+        });
     }
-    @FXML
-    private void errorConnectServer(){
+
+    public void errorLogin(String bodyError) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error connection");
+        alert.setTitle("ERROR!");
         alert.setHeaderText(null);
-        alert.setContentText("Server connection error.\nTry later.");
+        alert.setContentText(bodyError);
         alert.showAndWait();
     }
+
+
+
 }
 
 

@@ -4,42 +4,56 @@ package ModelServer;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 
 @XmlRootElement(name = "XMLMess")
-@XmlType(propOrder = {"commandMess", "from", "bodyMess"})
+@XmlType(propOrder = {"commandMess","user" ,"from", "bodyMess", "userOnline"})
 public class Message {
-    private String commandMess = "sendAll";
+    private int commandMess;
     private String from;
     private String bodyMess;
-
-    public String getCommandMess() {
+    private User user;
+    private ArrayList<String> userOnline;
+    @XmlElement
+    public int getCommandMess() {
         return commandMess;
     }
-    @XmlElement
-    public void setCommandMess(String commandMess) {
+
+    public void setCommandMess(int commandMess) {
         this.commandMess = commandMess;
     }
-/*
-    public Message(String from, String bodyMess) {
-        this.from = from;
-        this.bodyMess = bodyMess;
-        //messToXML();
-    }
-*/
+
+    @XmlElement
     public String getFrom() {
         return from;
     }
-    @XmlElement
+
     public void setFrom(String from) {
         this.from = from;
     }
-
+    @XmlElement
     public String getBodyMess() {
         return bodyMess;
     }
-    @XmlElement
+
     public void setBodyMess(String bodyMess) {
         this.bodyMess = bodyMess;
     }
+    @XmlElement
+    public User getUser() {
+        return user;
+    }
 
+    public User setUser(User user) {
+        this.user = user;
+        return user;
+    }
+    @XmlElement
+    public ArrayList<String> getUserOnline() {
+        return userOnline;
+    }
+
+    public void setUserOnline(ArrayList<String> userOnline) {
+        this.userOnline = userOnline;
+    }
 }

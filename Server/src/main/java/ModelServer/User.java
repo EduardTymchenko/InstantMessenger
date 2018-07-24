@@ -1,14 +1,23 @@
 package ModelServer;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
-    private int idUser;
+
     private String nameUser;
     private String passwordUser;
     private boolean adminUser;
-    private boolean online;
+    private boolean ban;
 
-    public int getIdUser() {
-        return idUser;
+    public User(String nameUser, String passwordUser, boolean adminUser,  boolean ban) {
+        this.nameUser = nameUser;
+        this.passwordUser = passwordUser;
+        this.adminUser = adminUser;
+        this.ban = ban;
+    }
+
+    public User() {
     }
 
     public String getNameUser() {
@@ -21,10 +30,6 @@ public class User {
 
     public boolean isAdminUser() {
         return adminUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
     }
 
     public void setNameUser(String nameUser) {

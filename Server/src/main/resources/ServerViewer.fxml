@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="Cp1251"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -14,10 +13,11 @@
     <RowConstraints maxHeight="342.0" minHeight="10.0" prefHeight="327.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="127.0" minHeight="5.0" prefHeight="41.0" vgrow="SOMETIMES" />
   </rowConstraints>
-
-      <Button mnemonicParsing="false" onAction="#startServer" text="Start" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="restart" mnemonicParsing="false" text="Restart" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#stopServer" text="Stop" translateX="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextArea fx:id="ta" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   <children>
+   
+         <Button mnemonicParsing="false" onAction="#startServer" text="Start" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <Button mnemonicParsing="false" onAction="#stopServer" text="Stop" translateX="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <TextArea fx:id="textArea" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   </children>
 
 </GridPane>

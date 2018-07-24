@@ -1,21 +1,20 @@
 package ViewerClient;
 
 import ControllerClient.ClientController;
+import ModelServer.CommandChat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class ClientWindow extends Application {
 
     // public static Stage parentWindow;
     static ClientController clientController;
-
+    static CommandChat commandChat;
     public static void main(String[] args) {
-          //  clientController = new ClientController();
         launch(args);
     }
 
@@ -28,6 +27,7 @@ public class ClientWindow extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> System.exit(0));
+
         }
 }
 

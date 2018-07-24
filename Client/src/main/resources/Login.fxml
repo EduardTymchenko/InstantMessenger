@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -23,7 +22,6 @@
          <PasswordField fx:id="repeatPassField" layoutX="126.0" layoutY="172.0" promptText="Repeat password" visible="false" />
          <Text fx:id="repeatPassText" layoutX="21.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repeat password" visible="false" />
          <Text fx:id="formCheck" fill="RED" layoutX="58.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check the data. For help, point over the field." textAlignment="CENTER" visible="false" wrappingWidth="311.0" />
-      <Button layoutX="230.0" layoutY="232.0" mnemonicParsing="false" onAction="#errorConnectServer" text="Button" />
    </children>
 
 </AnchorPane>
