@@ -141,7 +141,7 @@ public class LoginWindowController {
         allChatStage.setMinWidth(400);
         allChatStage.show();
         allChatStage.setOnCloseRequest(event -> {
-            clientController.closeSocketClient();
+          clientController.closeSocketClient();
             System.exit(0);
         });
     }

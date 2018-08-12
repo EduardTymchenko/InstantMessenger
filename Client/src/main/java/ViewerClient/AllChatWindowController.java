@@ -6,19 +6,30 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import static ViewerClient.ClientWindow.clientController;
 import static ViewerClient.ClientWindow.commandChat;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AllChatWindowController {
 
+    @FXML
+    private AnchorPane allChatID;
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -31,6 +42,7 @@ public class AllChatWindowController {
     private Text idUser;
     @FXML
     private ListView<String> idactiveUsers;
+
 
     private ObservableList observableList = FXCollections.observableArrayList();
 
@@ -83,7 +95,20 @@ public class AllChatWindowController {
     }
 
     @FXML
-    void changePassworAction(ActionEvent event) {
+    void changePassworAction(ActionEvent event) throws IOException {
+        Stage stageAllChat = (Stage) allChatID.getScene().getWindow();
+        Parent changePassword = FXMLLoader.load(getClass().getResource("/ChangePassword.fxml"));
+        Stage changePasswordStage = new Stage();
+        changePasswordStage.setScene(new Scene(changePassword));
+        changePasswordStage.setTitle("Change user password");
+        changePasswordStage.initOwner(stageAllChat);
+        changePasswordStage.initModality(Modality.WINDOW_MODAL);
+        changePasswordStage.setResizable(false);
+        changePasswordStage.showAndWait();
+
 
     }
+
+
+
 }

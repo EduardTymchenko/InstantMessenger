@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerClient.AllChatWindowController">
+<AnchorPane fx:id="allChatID" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewerClient.AllChatWindowController">
    <children>
          <TextArea fx:id="textAllChatIn" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="284.0" prefWidth="421.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="34.0" />
          <TextArea fx:id="textAllChatOut" layoutX="14.0" layoutY="325.0" prefHeight="60.0" prefWidth="360.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="226.0" />
@@ -16,7 +17,7 @@
                 <Menu mnemonicParsing="false" text="Settings">
          <items>
          
-                       <MenuItem mnemonicParsing="false" onAction="#changePassworAction" text="Change password" />
+                       <MenuItem fx:id="changePswId" mnemonicParsing="false" onAction="#changePassworAction" text="Change password" />
                            <SeparatorMenuItem mnemonicParsing="false" />
                            <MenuItem mnemonicParsing="false" onAction="#quitAction" text="Quite" />
          </items>

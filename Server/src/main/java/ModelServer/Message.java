@@ -9,17 +9,17 @@ import java.util.ArrayList;
 @XmlRootElement(name = "XMLMess")
 @XmlType(propOrder = {"commandMess","user" ,"from", "bodyMess", "userOnline"})
 public class Message {
-    private int commandMess;
+    private CommandChat commandMess;
     private String from;
     private String bodyMess;
     private User user;
     private ArrayList<String> userOnline;
     @XmlElement
-    public int getCommandMess() {
+    public CommandChat getCommandMess() {
         return commandMess;
     }
 
-    public void setCommandMess(int commandMess) {
+    public void setCommandMess(CommandChat commandMess) {
         this.commandMess = commandMess;
     }
 

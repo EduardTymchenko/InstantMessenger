@@ -5,6 +5,7 @@ import ModelServer.Message;
 import ModelServer.ParsingXML;
 import ModelServer.User;
 import ViewerClient.AllChatWindowController;
+import ViewerClient.ChangePassWindow;
 import ViewerClient.LoginWindowController;
 import javafx.application.Platform;
 import javax.xml.bind.JAXBException;
@@ -14,6 +15,7 @@ import java.net.Socket;
 public class ClientController {
     private AllChatWindowController allChatWindowController;
     private LoginWindowController loginWindowController;
+    private ChangePassWindow changePassWindow;
     private Socket clSocket;
     private final int portServer = 8888;
     private final String ipServer = "localhost";
@@ -22,6 +24,14 @@ public class ClientController {
     private ParsingXML parsingXML = new ParsingXML();
     private Message inputMess = new Message();
     private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setChangePassWindow(ChangePassWindow changePassWindow) {
+        this.changePassWindow = changePassWindow;
+    }
 
     public void setAllChatWindowController(AllChatWindowController allChatWindowController) {
         this.allChatWindowController = allChatWindowController;
@@ -54,6 +64,7 @@ public class ClientController {
                                     loginWindowController.showAllChatWindow();
                                     allChatWindowController.setIdUser(user.getNameUser());
                                     allChatWindowController.getUserActive(inputMess.getUserOnline());
+
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
